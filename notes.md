@@ -17,4 +17,17 @@ Notes taken during Udemy course on [Docker and Kubernetes](https://www.udemy.com
 - Download the mac version from the website, don't use brew :) 
 
 # Creating containers 
-- 
+- Run command `docker version` to make sure the client can talk to the docker engine 
+- Image: application we want to run 
+- Container is an instance of the image running as a process 
+- Docker Hub is Docker's default image "registry"
+- Run an nginx server in a container: 
+```bash
+docker container run --publish 80:80 --detach nginx
+```
+`--detach` runs the container in the background. 
+
+Some useful commands 
+- `docker container ls` : lists all running containers 
+- `docker container ls -a`: lists all containers 
+- `docker container logs <container name>`
