@@ -31,3 +31,15 @@ Some useful commands
 - `docker container ls` : lists all running containers 
 - `docker container ls -a`: lists all containers 
 - `docker container logs <container name>`
+- `docker top <container name>` : shows processes inside the container 
+
+What happens when we do `docker container run`?
+- Looks for image locally, if not, then go to Docker Hub and download the latest version
+- Gives virtual IP on a private network inside docker engine
+- By default, port 80 is opened on the host and forwarded to port 80 of the container 
+- Starts the container by running the `CMD` command specified in the Dockerfile
+
+## Container vs VM
+- Not the same! 
+- Containers are processes running on the host
+- On a mac, they will appear as a process (when one does `top`) in the virtual VM that the Docker engine creates 
