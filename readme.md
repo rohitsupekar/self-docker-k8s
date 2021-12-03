@@ -1,4 +1,4 @@
-Notes taken during Udemy course on [Docker and Kubernetes](https://www.udemy.com/course/docker-mastery/). 
+Following are my notes that I took while taking this course on [Docker and Kubernetes](https://www.udemy.com/course/docker-mastery/). 
 
 # Why Docker?
 
