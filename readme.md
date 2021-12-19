@@ -87,3 +87,6 @@ What happens when we do `docker container run`?
 - can't use IP addresses to talk to containers since they are variable and not static
 - Docker has a built-in DNS server that containers use by default
 - Create new networks to host all the apps so they can talk to each other through it
+- Use the `--net-alias` flag to give a DNS name to your container
+
+**Note**: if we need to run a container and check if something it quickly and ask docker to remove everything about it once we exit, use the `--rm` flag with `docker container run`. 
