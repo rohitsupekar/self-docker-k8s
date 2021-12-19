@@ -32,7 +32,8 @@ Some useful commands
 - `docker container ls -a`: lists all containers 
 - `docker container logs <container name>`
 - `docker top <container name>` : shows processes inside the container 
-- `docker ps` : shows both running and stopped containers
+- `docker ps` : shows both running and stopped containers (old command)
+- `docker image ls`: show all the local images available
 
 What happens when we do `docker container run`?
 - Looks for image locally, if not, then go to Docker Hub and download the latest version
@@ -46,3 +47,43 @@ What happens when we do `docker container run`?
 - On a mac, they will appear as a process (when one does `top`) in the virtual VM that the Docker engine creates 
 - Docker containers are no longer just linux based. Now it is possible to create Windows containers as well. 
 
+## What's going on inside a container
+
+- `docker container top <container>` : lists process inside a container
+- `docker container inspect <container>` : gives a json with all the data of how the container was started
+- `docker container stats`: a live view of resources used by containers
+
+### Getting a shell inside
+
+- no SSH needed!
+- `docker container run -it`: start a new container interactively
+- For example: `docker container run -it --name nginx nginx bash` [this is starting a container with name ngix and image nginx and the first command run in the container is `bash`; hence we get an interactive terminal inside the container]
+- `docker container exec -it` : run addtional command in existing container
+- `alpine` is a linux image that's only about 5 MB in size, so its very light, it doesn't even have `bash`. 
+
+## Docker Networks
+
+### Concepts
+
+- each container is connected to a private virtual network "bridge", which is attached to the host ethernet
+- defaults for networking just work out of the box, but they are configurable
+- `docker container run -p XY:AB` -p stands for publish.XY is the host port and AB is the container port.
+- `docker container port <container>` to find the ports exposed by the container
+
+### CLI Management
+
+- `docker network ls` : lists all the networks 
+- `docker network inspect` : inspect all the details of the networks 
+- `docker network create --driver` : create a network
+- `docker network connect` : attach a network to a container
+- `docker network disconnect` : detach a network from a container
+- the default network is called `bridge` which is connected to the physical network through the host firewall
+- `docker container run --network <network_name> <image_name>` connects the new container to the network you specify
+
+### Security
+- since containers can all be connected to the same virtual network, they can talk to each other behind the host firewall without going through the physical network
+
+### DNS
+- can't use IP addresses to talk to containers since they are variable and not static
+- Docker has a built-in DNS server that containers use by default
+- Create new networks to host all the apps so they can talk to each other through it
