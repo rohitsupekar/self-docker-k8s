@@ -43,3 +43,5 @@ What happens when we do `docker container run`?
 - Not the same! 
 - Containers are processes running on the host
 - On a mac, they will appear as a process (when one does `top`) in the virtual VM that the Docker engine creates 
+- Docker containers are no longer just linux based. Now it is possible to create Windows containers as well. 
+
