@@ -91,7 +91,7 @@ What happens when we do `docker container run`?
 
 **Note**: if we need to run a container and check if something it quickly and ask docker to remove everything about it once we exit, use the `--rm` flag with `docker container run`. 
 
-## Image
+## Images
 
 - Binaries and dependencies exist in an image, it's not a complete OS
 - They can be as small as a file or as big as an ubutu system
@@ -102,3 +102,19 @@ What happens when we do `docker container run`?
 - images are tagged, one version can have multiple tags
 - downloading an image: `docker pull <image-name:version-tag>`
 - best practice: specify the exact version upto the minor/patch version release
+- `alpine` images are lightweight linux images as compared to their debian counterparts 
+
+### Image layers
+
+- Images are designed using the "union file system", they comprise of multiple layers
+- `docker history <image-name>` can list all the different layers of the image
+- Example: we start with a base ubuntu image, then through apt-get command in the Dockerfile, we install something. That's another layer. Then we set Env variables, that's another layer. So this overall image comprises of 3 layers. 
+- Layer data is stored on the file system, and need not be re-downloaded. That is, two images with some common layers share a single copy of those layers. 
+- `docker inspect <image-name>` gives metadata of the image in the form of a json
+
+### Image tags
+
+- Tag: isn't much of a version or a branch. We can think of it as a tag on github repos. 
+- The same image can have multiple tags
+- Tagging an image: `docker image tag <old-image:tab> <new-image:tag>` (the tag is optional)
+- To push an image to docker hub, `docker image push` [login to docker using `docker login` before that]
