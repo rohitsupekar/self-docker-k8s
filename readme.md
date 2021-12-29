@@ -90,3 +90,15 @@ What happens when we do `docker container run`?
 - Use the `--net-alias` flag to give a DNS name to your container
 
 **Note**: if we need to run a container and check if something it quickly and ask docker to remove everything about it once we exit, use the `--rm` flag with `docker container run`. 
+
+## Image
+
+- Binaries and dependencies exist in an image, it's not a complete OS
+- They can be as small as a file or as big as an ubutu system
+
+### Docker hub
+
+- only repository of images including official ones as well as user created
+- images are tagged, one version can have multiple tags
+- downloading an image: `docker pull <image-name:version-tag>`
+- best practice: specify the exact version upto the minor/patch version release
