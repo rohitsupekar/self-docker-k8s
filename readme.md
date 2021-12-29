@@ -118,3 +118,22 @@ What happens when we do `docker container run`?
 - The same image can have multiple tags
 - Tagging an image: `docker image tag <old-image:tab> <new-image:tag>` (the tag is optional)
 - To push an image to docker hub, `docker image push` [login to docker using `docker login` before that]
+
+### Dockerfile basics
+
+- Recipe for creating an image
+- Different commands in the Dockerfile are called "stanzas"
+- `FROM` command to specific base image
+- `ENV` to inject environment variables
+- Each command in Dockerfile creates a new layer. So multiple bash commands are typically written together in one `RUN` line. For example, one can use `&&` to group different bash commands
+- `EXPOSE`: ports to expose 
+- `CMD`: required command, it is the final command that the image runs
+
+### Building images
+- `docker image build -t <tag> .` in the folder in which you have the Dockerfile
+- use the flag `-f` to specify a Dockerfile with a specific name
+
+### Extending official images
+- `WORKDIR` to change working directory, avoid using `RUN cd /path/to/dir`
+- `COPY` to copy files from build source to the image
+- Required commands such as `EXPOSE` and `CMD` need not be in the Dockerfile if the base image has those commands
