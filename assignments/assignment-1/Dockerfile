@@ -18,7 +18,7 @@ FROM node:6-alpine
 RUN apk add --update tini \
     && mkdir -p /usr/src/app
 
-EXPOSE 3000 80
+EXPOSE 3000
 
 WORKDIR /usr/src/app
 
