@@ -127,7 +127,7 @@ What happens when we do `docker container run`?
 - `ENV` to inject environment variables
 - Each command in Dockerfile creates a new layer. So multiple bash commands are typically written together in one `RUN` line. For example, one can use `&&` to group different bash commands
 - `EXPOSE`: ports to expose 
-- `CMD`: required command, it is the final command that the image runs
+- `CMD`: required command, it is the command that the container running this image will execute on its entry
 
 ### Building images
 - `docker image build -t <tag> .` in the folder in which you have the Dockerfile
@@ -137,3 +137,36 @@ What happens when we do `docker container run`?
 - `WORKDIR` to change working directory, avoid using `RUN cd /path/to/dir`
 - `COPY` to copy files from build source to the image
 - Required commands such as `EXPOSE` and `CMD` need not be in the Dockerfile if the base image has those commands
+
+### Pruning
+- `docker image prune` cleans up "dangling images"
+- `docker system prune` cleans up everything
+- `docker image prune -a` will remove all images you aren't using
+- `docker system df` to see space usage
+
+## Container lifetime and persistent data
+
+- Containers are usually immutable and ephemeral
+- "immutable infrastructure": only re-deploy containers, never change
+- "Separation of concerns": unique data can be recycled/reused while re-deploy the application binaries in the container
+- This unique data is called "persistent data". Two ways:
+  - Volumes: make a special location outside the container UFS. Volumes need a special cleanup, just deleting the container is not enough!
+  - Bind mounts: link container volume path to host path 
+
+### Persistent Data: Volumes
+
+- `VOLUME`: command to create a new volume. If this is used
+- `docker volume ls` lists all the volumnes
+- `docker volume inspect <volumne-name>` gives metadata to find where these data are on the host
+- For usefriendly behavior, use named volumes. Use this as `docker container run -d --name <container-name> -v <volume-name>:<volume-path> <image-name>` [reminder: `-d` is `-detached` for running container in the background]
+- When creating a new container, if an already existing volume path is used, docker won't create a new volume but will reuse the already existing one
+- `docker volume create` to create a volume ahead of time outside the Dockerfile
+
+### Persistent Data: Bind Mounting
+
+- Maps host files or directory to those of the container
+- Can't use in Dockerfile, must be used with `docker container run`
+- `docker container run -v <host-path>:<container-path>` to specify the bind mount. The `host-path` can be something like `/Users/asdf/path/to/dir`.
+- This is great for local development since one can change files on the host, while the container is running. It will be able to see and read in those changes. One does not need to go into the bash shell of the container. 
+
+
