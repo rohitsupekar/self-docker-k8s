@@ -169,4 +169,28 @@ What happens when we do `docker container run`?
 - `docker container run -v <host-path>:<container-path>` to specify the bind mount. The `host-path` can be something like `/Users/asdf/path/to/dir`.
 - This is great for local development since one can change files on the host, while the container is running. It will be able to see and read in those changes. One does not need to go into the bash shell of the container. 
 
+## Docker Compose
 
+- Why? 
+  - Configure relationships between different containers
+  - Save docker container run settings in readable file
+  - Create one-liner developer startups
+
+- What is needed? 
+  - yaml file: `docker-compose.yml` 
+    - `docker-compose` CLI tool
+
+### `docker-compose.yml`
+
+- version is specified at the top of the file
+- `sevices`: containers
+  - specify `<servicename>`: DNS name of a container
+  - `depends-on`: what other containers does this container depend on?
+
+
+  ### `docker-compose` CLI
+
+  - Idea for local development, is not production-grade
+  - Common commands:
+    - `docker-compose up`: setup volumes/networks and start all containers
+    - `docker-compose down`: stop all containers and remove containers/volumes/networks
