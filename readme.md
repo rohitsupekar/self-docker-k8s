@@ -194,3 +194,5 @@ What happens when we do `docker container run`?
   - Common commands:
     - `docker-compose up`: setup volumes/networks and start all containers
     - `docker-compose down`: stop all containers and remove containers/volumes/networks
+    - `docker-compose` has the same options as `docker` available like `-d` (background), `logs`, etc.
+    - `docker-compose down -v` removes volumes while shutting containers
