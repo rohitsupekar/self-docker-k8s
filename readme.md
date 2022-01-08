@@ -196,3 +196,9 @@ What happens when we do `docker container run`?
     - `docker-compose down`: stop all containers and remove containers/volumes/networks
     - `docker-compose` has the same options as `docker` available like `-d` (background), `logs`, etc.
     - `docker-compose down -v` removes volumes while shutting containers
+
+  ### Using compose to build
+
+  - Compose can build images and store them in cache, it won't build the images if they are found in the cache
+  - Specify building an image through the `build` key in `docker-compose.yml`
+  - 
